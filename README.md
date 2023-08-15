@@ -15,6 +15,17 @@ npx lexigen -u <service-account-username> -s <service-account-secret> -p <projec
 ```
 > The generated code is printed in `stdout`. You can simply redirect it to a file to save it.
 
+### Options
+```
+  -u, --username  Mixpanel service account username.         [string] [required]
+  -s, --secret    Mixpanel service account secret/password.  [string] [required]
+  -p, --project   Mixpanel project id to pull the schema definitions from.
+                                                             [string] [required]
+  -t, --target    A target API to generate.
+                        [string] [choices: "typescript"] [default: "typescript"]
+  -f, --filter    Filters the events by a specific tag.                 [string]
+```
+
 ## Language support
 Currently supports the following generators:
 - Typescript.

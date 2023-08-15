@@ -14,7 +14,7 @@ const generators: Record<GenerationOptions, typeof generateTypescript> = {
   typescript: generateTypescript,
 }
 
-const { username, secret, project, target } = yargs(hideBin(process.argv))
+const { username, secret, project, target, filter } = yargs(hideBin(process.argv))
   .option('username', {
     alias: 'u',
     type: 'string',
@@ -40,8 +40,13 @@ const { username, secret, project, target } = yargs(hideBin(process.argv))
     description: 'A target API to generate.',
     default: 'typescript',
   })
+  .option('filter', {
+    alias: 'f',
+    type: 'string',
+    description: 'Filters the events by a specific tag.',
+  })
   .parseSync()
 
-fetchEventsSchema(username, secret, project)
+fetchEventsSchema(username, secret, project, filter)
   .then(generators[target as GenerationOptions])
   .then(console.log)
