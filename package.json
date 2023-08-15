@@ -1,0 +1,28 @@
+{
+  "name": "lexigen",
+  "version": "1.0.0",
+  "description": "Generate tracking code based on Mixpanel's lexicon definitions.",
+  "author": "KhaledSakr",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "lint": "eslint 'src/**/*.{js,ts,tsx}'",
+    "lint:fix": "eslint 'src/**/*.{js,ts,tsx}' --fix"
+  },
+  "devDependencies": {
+    "@impargo/eslint-config": "^1.0.14",
+    "@types/node": "^20.5.0",
+    "@types/node-fetch": "2",
+    "@types/yargs": "^17.0.24",
+    "typescript": "^5.1.6"
+  },
+  "dependencies": {
+    "change-case": "^4.1.2",
+    "json-schema-to-typescript": "^13.0.2",
+    "node-fetch": "2",
+    "yargs": "^17.7.2"
+  },
+  "bin": {
+    "lexigen": "./lib/index.js"
+  }
+}

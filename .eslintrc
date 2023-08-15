@@ -1,0 +1,6 @@
+{
+  "extends": ["@impargo/eslint-config"],
+  "env": {
+    "node": true
+  }
+}
