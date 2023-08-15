@@ -173,7 +173,7 @@
 
 "@impargo/eslint-config@^1.0.14":
   version "1.0.14"
-  resolved "https://npm.pkg.github.com/download/@impargo/eslint-config/1.0.14/8ddf65a976be9afb1eb067711079c6c86e773281#8ddf65a976be9afb1eb067711079c6c86e773281"
+  resolved "https://registry.yarnpkg.com/@impargo/eslint-config/-/eslint-config-1.0.14.tgz#8ddf65a976be9afb1eb067711079c6c86e773281"
   integrity sha512-7uguQGNIX/qHjJKx/jzfBsfnKcJSxymeAS2wcnjaPXqPqQJ8ANTabBjBI6oLm6dkTISfvudJtUFbtpu4BsY5yQ==
   dependencies:
     "@typescript-eslint/eslint-plugin" "^5.42.0"
