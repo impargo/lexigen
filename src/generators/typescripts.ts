@@ -25,8 +25,9 @@ export const generate = async (events: EventSchema[]): Promise<string> => {
     const interfaceName = `${pascalCase(event.name)}Properties`
     const functionName = `track${pascalCase(event.name)}Event`
     const params = await generateParamsForEvent(event, interfaceName)
+    const shouldParamsBeOptional = !Object.keys(event.schemaJson.properties ?? {}).length
     // eslint-disable-next-line max-len
-    return `${params}\n${formatDescription(event)}export const ${functionName} = (properties: ${interfaceName}) => mixpanel.track('${event.name}', properties)`
+    return `${params}\n${formatDescription(event)}export const ${functionName} = (properties${shouldParamsBeOptional ? '?' : ''}: ${interfaceName}) => mixpanel.track('${event.name}', properties)`
   }))
   return `/* eslint-disable */\nimport mixpanel from 'mixpanel-browser'\n\n${formattedEvents.join('\n\n')}`
 }
