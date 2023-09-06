@@ -1,6 +1,6 @@
 {
   "name": "lexigen",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Generate tracking code based on Mixpanel's lexicon definitions.",
   "author": "KhaledSakr",
   "license": "MIT",
