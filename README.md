@@ -29,5 +29,6 @@ npx lexigen -u <service-account-username> -s <service-account-secret> -p <projec
 ## Language support
 Currently supports the following generators:
 - Typescript.
+- Dart.
 
 > The generator assumes that the mixpanel tracking package is already installed and setup. It only imports the package at the top of the generated file.
