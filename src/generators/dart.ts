@@ -12,6 +12,11 @@ const dartTypeMapping: { [key: string]: string } = {
   object: 'Map<String, dynamic>',
 }
 
+const lowerPascalCase = (str: string): string => {
+  const result = pascalCase(str)
+  return result.charAt(0).toLowerCase() + result.slice(1)
+}
+
 const generateDartMethod = (eventName: string, schema: JSONSchema): string => {
   const requiredFields = schema.required || []
   const properties = schema.properties || {}
@@ -20,13 +25,13 @@ const generateDartMethod = (eventName: string, schema: JSONSchema): string => {
     .map(([key, value]: [string, any]) => {
       const type = dartTypeMapping[value.type] || 'dynamic'
       const isRequired = requiredFields === true || requiredFields.includes(key)
-      const paramName = pascalCase(key)
+      const paramName = lowerPascalCase(key)
       return `${isRequired ? 'required ' : ''}${type}${isRequired ? '' : '?'} ${paramName}`
     })
     .join(', ')
 
   const propertiesMap = Object.entries(properties)
-    .map(([key, _]) => `'${key}': ${pascalCase(key)}`)
+    .map(([key, _]) => `'${key}': ${lowerPascalCase(key)}`)
     .join(',\n        ')
 
   if (!methodParams) {
@@ -54,10 +59,11 @@ export const generate = async (events: EventSchema[]): Promise<string> => {
   return `
 import 'package:mixpanel_flutter/mixpanel_flutter.dart';
 
-/// Abstract class to track analytics events
-abstract class AnalyticsEvents {
+class Lexicon {
+  static Mixpanel? mixpanel;
+
   static void _track(String eventName, {Map<String, dynamic>? properties}) {
-    Mixpanel.instance.track(eventName, properties);
+    mixpanel?.track(eventName, properties: properties);
   }
 
 ${eventMethods.join('\n\n')}

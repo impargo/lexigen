@@ -22,7 +22,7 @@ npx lexigen -u <service-account-username> -s <service-account-secret> -p <projec
   -p, --project   Mixpanel project id to pull the schema definitions from.
                                                              [string] [required]
   -t, --target    A target API to generate.
-                        [string] [choices: "typescript"] [default: "typescript"]
+                [string] [choices: "typescript", "dart"] [default: "typescript"]
   -f, --filter    Filters the events by a specific tag.                 [string]
 ```
 
