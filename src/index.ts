@@ -3,15 +3,19 @@
 import yargs from 'yargs'
 import { hideBin } from 'yargs/helpers'
 
+import { generate as generateDart } from './generators/dart'
 import { generate as generateTypescript } from './generators/typescripts'
 import { fetchEventsSchema } from './mixpanel'
 
+type GeneratorFunctionType = typeof generateTypescript
 enum GenerationOptions {
   typescript = 'typescript',
+  dart = 'dart',
 }
 
-const generators: Record<GenerationOptions, typeof generateTypescript> = {
+const generators: Record<GenerationOptions, GeneratorFunctionType> = {
   typescript: generateTypescript,
+  dart: generateDart,
 }
 
 const { username, secret, project, target, filter } = yargs(hideBin(process.argv))
@@ -36,7 +40,7 @@ const { username, secret, project, target, filter } = yargs(hideBin(process.argv
   .option('target', {
     alias: 't',
     type: 'string',
-    choices: [GenerationOptions.typescript],
+    choices: [GenerationOptions.typescript, GenerationOptions.dart],
     description: 'A target API to generate.',
     default: 'typescript',
   })
