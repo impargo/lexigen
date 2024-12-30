@@ -1,4 +1,4 @@
-import { pascalCase } from 'change-case'
+import { camelCase, pascalCase } from 'change-case'
 import { JSONSchema } from 'json-schema-to-typescript'
 
 import { EventSchema } from '../mixpanel'
@@ -12,11 +12,6 @@ const dartTypeMapping: { [key: string]: string } = {
   object: 'Map<String, dynamic>',
 }
 
-const lowerPascalCase = (str: string): string => {
-  const result = pascalCase(str)
-  return result.charAt(0).toLowerCase() + result.slice(1)
-}
-
 const generateDartMethod = (eventName: string, schema: JSONSchema): string => {
   const requiredFields = schema.required || []
   const properties = schema.properties || {}
@@ -25,13 +20,13 @@ const generateDartMethod = (eventName: string, schema: JSONSchema): string => {
     .map(([key, value]: [string, any]) => {
       const type = dartTypeMapping[value.type] || 'dynamic'
       const isRequired = requiredFields === true || requiredFields.includes(key)
-      const paramName = lowerPascalCase(key)
+      const paramName = camelCase(key)
       return `${isRequired ? 'required ' : ''}${type}${isRequired ? '' : '?'} ${paramName}`
     })
     .join(', ')
 
   const propertiesMap = Object.entries(properties)
-    .map(([key, _]) => `'${key}': ${lowerPascalCase(key)}`)
+    .map(([key, _]) => `'${key}': ${camelCase(key)}`)
     .join(',\n        ')
 
   if (!methodParams) {
