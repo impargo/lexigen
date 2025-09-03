@@ -23,6 +23,7 @@ npx lexigen -u <service-account-username> -s <service-account-secret> -p <projec
                                                              [string] [required]
   -t, --target    A target API to generate.
                 [string] [choices: "typescript", "dart"] [default: "typescript"]
+      --server-side, --ss  Generate server-side code. [boolean] [default: false]
   -f, --filter    Filters the events by a specific tag.                 [string]
 ```
 

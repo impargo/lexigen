@@ -18,7 +18,7 @@ const generators: Record<GenerationOptions, GeneratorFunctionType> = {
   dart: generateDart,
 }
 
-const { username, secret, project, target, filter } = yargs(hideBin(process.argv))
+const { username, secret, project, target, filter, serverSide } = yargs(hideBin(process.argv))
   .option('username', {
     alias: 'u',
     type: 'string',
@@ -44,6 +44,12 @@ const { username, secret, project, target, filter } = yargs(hideBin(process.argv
     description: 'A target API to generate.',
     default: 'typescript',
   })
+  .option('server-side', {
+    alias: 'ss',
+    type: 'boolean',
+    description: 'Generate server-side code.',
+    default: false,
+  })
   .option('filter', {
     alias: 'f',
     type: 'string',
@@ -52,5 +58,5 @@ const { username, secret, project, target, filter } = yargs(hideBin(process.argv
   .parseSync()
 
 fetchEventsSchema(username, secret, project, filter)
-  .then(generators[target as GenerationOptions])
+  .then((schema) => generators[target as GenerationOptions](schema, serverSide))
   .then(console.log)
