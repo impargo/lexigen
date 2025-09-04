@@ -28,7 +28,7 @@ export const generate = async (events: EventSchema[], serverSide: boolean): Prom
     const shouldParamsBeOptional = !Object.keys(event.schemaJson.properties ?? {}).length
     // eslint-disable-next-line max-len
     if (serverSide) {
-      return `${params}\n${formatDescription(event)}export const ${functionName} = (distinct_id: string, properties${shouldParamsBeOptional ? '?' : ''}: ${interfaceName}) => mixpanel?.track('${event.name}', { distinct_id, ...properties })`
+      return `${params}\n${formatDescription(event)}export const ${functionName} = async (userId: string, properties${shouldParamsBeOptional ? '?' : ''}: ${interfaceName}) => mixpanel?.track('${event.name}', { distinct_id: await sha256(userId), ...properties })`
     }
     // eslint-disable-next-line max-len
     return `${params}\n${formatDescription(event)}export const ${functionName} = (properties${shouldParamsBeOptional ? '?' : ''}: ${interfaceName}) => mixpanel.track('${event.name}', properties)`
@@ -41,10 +41,15 @@ let mixpanel: Mixpanel.Mixpanel | undefined
 export const initMixpanel = (token: string) => {
   mixpanel = Mixpanel.init(token)
 }
+const sha256 = async (str: string): Promise<string> => {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str))
+  return Array.prototype.map.call(new Uint8Array(buf), x => (('00' + x.toString(16)).slice(-2))).join('').slice(0, 16)
+}
 ${formattedEvents.join('\n\n')}`
   }
   return `
 /* eslint-disable */
 import mixpanel from 'mixpanel-browser'
+
 ${formattedEvents.join('\n\n')}`
 }
