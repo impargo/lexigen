@@ -28,7 +28,7 @@ export const generate = async (events: EventSchema[], serverSide: boolean): Prom
     const shouldParamsBeOptional = !Object.keys(event.schemaJson.properties ?? {}).length
     // eslint-disable-next-line max-len
     if (serverSide) {
-      return `${params}\n${formatDescription(event)}export const ${functionName} = async (userId: string, properties${shouldParamsBeOptional ? '?' : ''}: ${interfaceName}, isDriver = false) => mixpanel?.track('${event.name}', { distinct_id: await isDriver ? driverHash(userId) : dispatcherHash(userId), ...properties })`
+      return `${params}\n${formatDescription(event)}export const ${functionName} = async (userId: string, properties${shouldParamsBeOptional ? '?' : ''}: ${interfaceName}, isDriver = false) => mixpanel?.track('${event.name}', { distinct_id: isDriver ? await driverHash(userId) : await dispatcherHash(userId), ...properties })`
     }
     // eslint-disable-next-line max-len
     return `${params}\n${formatDescription(event)}export const ${functionName} = (properties${shouldParamsBeOptional ? '?' : ''}: ${interfaceName}) => mixpanel.track('${event.name}', properties)`
