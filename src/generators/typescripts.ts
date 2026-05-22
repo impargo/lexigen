@@ -39,7 +39,10 @@ import Mixpanel from 'mixpanel'
 
 let mixpanel: Mixpanel.Mixpanel | undefined
 export const initMixpanel = (token: string) => {
-  mixpanel = Mixpanel.init(token)
+  mixpanel = Mixpanel.init(token, {
+    // Important for EU data residency since mixpanel disabled forwarding: https://docs.mixpanel.com/changelogs/2026-02-20-eu-forwarding-deprecation
+    host: 'api-eu.mixpanel.com',
+  })
 }
 const dispatcherHash = async (str: string): Promise<string> => {
   const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str))
