@@ -7,8 +7,10 @@ jobs:
     install:
       runs-on: ubuntu-latest
       steps:
-        - uses: actions/checkout@v3
-        - uses: actions/setup-node@v3
+        - uses: actions/checkout@v6
+        - uses: actions/setup-node@v6
+          with:
+            node-version: '24'
         - name: Cache
           uses: actions/cache@v3
           with:
@@ -21,8 +23,10 @@ jobs:
       needs: install
       runs-on: ubuntu-latest
       steps:
-        - uses: actions/checkout@v3
-        - uses: actions/setup-node@v3
+        - uses: actions/checkout@v6
+        - uses: actions/setup-node@v6
+          with:
+              node-version: '24'
         - name: Restore cache
           uses: actions/cache@v3
           with:
@@ -35,8 +39,10 @@ jobs:
       needs: install
       runs-on: ubuntu-latest
       steps:
-        - uses: actions/checkout@v3
-        - uses: actions/setup-node@v3
+        - uses: actions/checkout@v6
+        - uses: actions/setup-node@v6
+          with:
+              node-version: '24'
         - name: Restore cache
           uses: actions/cache@v3
           with:
