@@ -56,8 +56,7 @@ const driverHash = async (str: string): Promise<string> => {
 }
 ${formattedEvents.join('\n\n')}`
   }
-  return `
-/* eslint-disable */
+  return `/* eslint-disable */
 import mixpanel from 'mixpanel-browser'
 
 ${formattedEvents.join('\n\n')}`

@@ -4,7 +4,7 @@ import yargs from 'yargs'
 import { hideBin } from 'yargs/helpers'
 
 import { generate as generateDart } from './generators/dart'
-import { generate as generateTypescript } from './generators/typescripts'
+import { generate as generateTypescript } from './generators/typescript'
 import { fetchEventsSchema } from './mixpanel'
 
 type GeneratorFunctionType = typeof generateTypescript
